@@ -1,11 +1,23 @@
 package de.uni_passau.studentcourse.course;
 
+import jakarta.persistence.*;
+
 import java.util.List;
 
+@Entity //mark class as entity
+@Table(name = "course") //defining class name as Table name
 public class Course {
+    @Id
     private String id;
     private String title;
     private String description;
+
+    @ManyToMany
+    @JoinTable(
+            name = "course_prerequisites",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "prerequisite_id")
+    )
     private List<Course> prerequisites;
 
     public Course() {

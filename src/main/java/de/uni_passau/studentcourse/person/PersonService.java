@@ -1,26 +1,21 @@
 package de.uni_passau.studentcourse.person;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class PersonService {
 
-    private final PersonRepository personRepository;
-
     @Autowired
-    public PersonService(PersonRepository personRepository) {
-        this.personRepository = personRepository;
-    }
+    private PersonRepository personRepository;
 
-    public Optional<Person> getPersonById(Long id) {
-        return personRepository.findById(id);
-    }
+//    public Person getPersonById(Long id) {
+//        return personRepository.findById(id).orElseThrow(() -> new RuntimeException("Person not found"));
+//    }
 
-    public Person savePerson(Person person) {
-        return personRepository.save(person);
+    public PersonDto getPersonById(Long id) {
+        return personRepository.findById(id)
+                .map(PersonDtoMapper::toDTO)
+                .orElseThrow(() -> new RuntimeException("Person not found"));
     }
-
 }

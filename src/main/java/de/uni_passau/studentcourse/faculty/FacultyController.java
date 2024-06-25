@@ -1,25 +1,18 @@
 package de.uni_passau.studentcourse.faculty;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("api/v1/faculty")
 public class FacultyController {
 
-    private final FacultyService facultyService;
-
     @Autowired
-    public FacultyController(FacultyService facultyService) {
-        this.facultyService = facultyService;
-    }
+    private FacultyService facultyService;
 
-    @GetMapping("/faculty/{titel}")
-    public ResponseEntity<Faculty> getFacultyByTitle(@PathVariable String titel) {
-        return facultyService.getFacultyByTitle(titel)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    @GetMapping("/{title}")
+    public Faculty getFacultyDetails(@PathVariable String title) {
+        return facultyService.getFacultyByTitle(title)
+                .orElseThrow(() -> new RuntimeException("Faculty not found"));
     }
 }

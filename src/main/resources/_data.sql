@@ -10,13 +10,11 @@ INSERT INTO course_prerequisites (course_id, prerequisite_id) VALUES ('c3', 'c1'
 INSERT INTO course_prerequisites (course_id, prerequisite_id) VALUES ('c3', 'c2');
 INSERT INTO course_prerequisites (course_id, prerequisite_id) VALUES ('c4', 'c3');
 
--- Insert persons (students and teachers)
-INSERT INTO person (id, mat_nr, first_name, last_name, type) VALUES (1, '23328', 'Max', 'Muster', 'Student');
-INSERT INTO person (id, mat_nr, first_name, last_name, type) VALUES (2, '34622', 'Hans', 'Muster', 'Student');
-INSERT INTO person (id, mat_nr, first_name, last_name, type) VALUES (3, '48645', 'Alice', 'Klint', 'Student');
-INSERT INTO person (id, mat_nr, first_name, last_name, type) VALUES (4, '24232', 'Bob', 'Ser', 'Student');
-INSERT INTO person (id, first_name, last_name, faculty, type) VALUES (5, 'John', 'Doe', 'Engineering', 'Teacher');
-INSERT INTO person (id, first_name, last_name, faculty, type) VALUES (6, 'Jane', 'Smith', 'Mathematics', 'Teacher');
+-- Insert students
+INSERT INTO student (id, mat_nr, first_name, last_name) VALUES (1, '23328', 'Max', 'Muster');
+INSERT INTO student (id, mat_nr, first_name, last_name) VALUES (2, '34622', 'Hans', 'Muster');
+INSERT INTO student (id, mat_nr, first_name, last_name) VALUES (3, '48645', 'Alice', 'Klint');
+INSERT INTO student (id, mat_nr, first_name, last_name) VALUES (4, '24232', 'Bob', 'Ser');
 
 -- Associate students with courses
 INSERT INTO student_course (student_id, course_id) VALUES (1, 'c0');
@@ -24,7 +22,3 @@ INSERT INTO student_course (student_id, course_id) VALUES (1, 'c1');
 INSERT INTO student_course (student_id, course_id) VALUES (2, 'c3');
 INSERT INTO student_course (student_id, course_id) VALUES (3, 'c0');
 INSERT INTO student_course (student_id, course_id) VALUES (4, 'c4');
-
--- Insert faculties
-INSERT INTO faculty (title, description) VALUES ('Engineering', 'Engineering faculty description');
-INSERT INTO faculty (title, description) VALUES ('Mathematics', 'Mathematics faculty description');

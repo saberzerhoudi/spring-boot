@@ -23,7 +23,7 @@ public class StudentService {
     }
 
     public Optional<Student> getStudent(String matNr) {
-        return studentRepository.findByMatNr(matNr);
+        return studentRepository.getStudent(matNr);
     }
 
     public Optional<List<Course>> getCurrentlyAttendedCourses(String matNr) {
@@ -32,9 +32,8 @@ public class StudentService {
     }
 
     public void registerStudentToCourse(String matNr, String courseId) {
-        Student student = studentRepository.findByMatNr(matNr)
+        Student student = studentRepository.getStudent(matNr)
                 .orElseThrow(() -> new IllegalArgumentException("Student not found"));
-
         Course course = courseRepository.getCourse(courseId)
                 .orElseThrow(() -> new IllegalArgumentException("Course not found"));
 

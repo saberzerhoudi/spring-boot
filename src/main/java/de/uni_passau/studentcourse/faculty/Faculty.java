@@ -1,12 +1,15 @@
 package de.uni_passau.studentcourse.faculty;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "faculty")
 public class Faculty {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+
     private String title;
     private String description;
 

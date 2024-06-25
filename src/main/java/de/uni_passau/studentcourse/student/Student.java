@@ -2,22 +2,42 @@ package de.uni_passau.studentcourse.student;
 
 import de.uni_passau.studentcourse.course.Course;
 import de.uni_passau.studentcourse.person.Person;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity //mark class as entity
+
+@DiscriminatorValue("Student")
 public class Student extends Person {
-    @Id
+
     private String matNr;
+
     @ManyToMany
+    @JoinTable(
+            name = "student_course",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
     private List<Course> completedCourses;
+
     @ManyToMany
+    @JoinTable(
+            name = "student_course",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
     private List<Course> currentCourses;
 
     public Student(String matNr, List<Course> completedCourses, List<Course> currentCourses) {
+        this.matNr = matNr;
+        this.completedCourses = completedCourses;
+        this.currentCourses = currentCourses;
+    }
+
+    public Student(Long id, String firstName, String lastName, String matNr, List<Course> completedCourses, List<Course> currentCourses) {
+        super(id, firstName, lastName);
         this.matNr = matNr;
         this.completedCourses = completedCourses;
         this.currentCourses = currentCourses;
@@ -53,7 +73,7 @@ public class Student extends Person {
     @Override
     public String toString() {
         return "Student{" +
-                ", matNr='" + matNr + '\'' +
+                "matNr='" + matNr + '\'' +
                 ", completedCourses=" + completedCourses +
                 ", currentCourses=" + currentCourses +
                 '}';
